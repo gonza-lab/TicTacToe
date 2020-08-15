@@ -134,6 +134,10 @@ main {
   color: white;
 }
 
+.non-visible{
+  visibility: hidden;
+}
+
 
 .board {
   position: relative;

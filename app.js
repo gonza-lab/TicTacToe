@@ -124,6 +124,7 @@ menus.addActionMain(() => {
   let players = menus.getPlayers();
   menus.toggleMainMenu();
   game = gameFactory(players.player1, players.player2);
+  marker.classList.toggle("non-visible");
   marker.querySelector("span").textContent = game.getTurnPlayer().name;
   marker.querySelector("span").classList = game.getTurnPlayer().sign;
 });
@@ -131,6 +132,7 @@ menus.addActionMain(() => {
 menus.addActionLast(() => {
   menus.toggleLastMenu();
   menus.toggleMainMenu();
+
   boardGame.querySelectorAll("input").forEach((element) => {
     element.value = "";
   });
@@ -168,7 +170,9 @@ boardGame.addEventListener("click", (e) => {
     } else {
       menus.setLastMenuMessage(`The winner is ${players.player2.name}`);
     }
-
+    
+    marker.classList.toggle("non-visible");
     menus.toggleLastMenu();
+    marker.querySelector("span").textContent = "";
   }
 });
