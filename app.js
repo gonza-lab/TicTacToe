@@ -1,4 +1,4 @@
-const game = (function (player1, player2) {
+const gameFactory = function (player1, player2) {
   let gameBoard = [
     ["a", "b", "c"],
     ["d", "e", "f"],
@@ -63,10 +63,77 @@ const game = (function (player1, player2) {
     }
   }
 
-  return { passTurn, getTurnPlayer, getGameBoard, getWinner };
-})("Gonzalo", "Ramiro");
+  function getPlayers() {
+    return { player1, player2 };
+  }
+
+  return { passTurn, getTurnPlayer, getGameBoard, getWinner, getPlayers };
+};
 
 const boardGame = document.querySelector(".board");
+let game = {};
+
+const menus = (function (doc) {
+  let mainMenu = doc.querySelector(".mainMenu");
+  let lastMenu = doc.querySelector(".lastMenu");
+  let player1;
+  let player2;
+
+  function toggleMainMenu() {
+    mainMenu.classList.toggle("hidden");
+  }
+
+  function toggleLastMenu() {
+    lastMenu.classList.toggle("hidden");
+  }
+
+  function getPlayers() {
+    player1 = mainMenu.querySelector("#player1Name").value;
+    player2 = mainMenu.querySelector("#player2Name").value;
+    return { player1, player2 };
+  }
+
+  function addActionMain(action) {
+    mainMenu.querySelector("#playGame").addEventListener("click", () => {
+      action();
+    });
+  }
+
+  function addActionLast(action) {
+    lastMenu.querySelector("#newGame").addEventListener("click", () => {
+      action();
+    });
+  }
+
+  function setLastMenuMessage(message) {
+    lastMenu.querySelector("p").textContent = message;
+  }
+
+  return {
+    toggleMainMenu,
+    toggleLastMenu,
+    addActionMain,
+    addActionLast,
+    getPlayers,
+    setLastMenuMessage
+  };
+})(document);
+
+menus.addActionMain(() => {
+  let players = menus.getPlayers();
+  menus.toggleMainMenu();
+  game = gameFactory(players.player1, players.player2);
+  console.log(game.getPlayers());
+});
+
+menus.addActionLast(() => {
+  menus.toggleLastMenu();
+  menus.toggleMainMenu();
+  boardGame.querySelectorAll("input").forEach((element) => {
+    element.value = "";
+  })
+});
+
 
 boardGame.addEventListener("click", (e) => {
   let elementClicked = e.target;
@@ -87,9 +154,16 @@ boardGame.addEventListener("click", (e) => {
 });
 
 boardGame.addEventListener("click", (e) => {
-  if (game.getWinner()) {
-    console.log(game.getWinner());
+  let signWinner = game.getWinner();
+  let players = game.getPlayers();
+
+  if (signWinner) {
+    if (signWinner === players.player1.sign) {
+      menus.setLastMenuMessage(`The winner is ${players.player1.name}`);
+    } else {
+      menus.setLastMenuMessage(`The winner is ${players.player2.name}`);
+    }
+    
+    menus.toggleLastMenu();
   }
 });
-
-
