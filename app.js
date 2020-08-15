@@ -71,6 +71,7 @@ const gameFactory = function (player1, player2) {
 };
 
 const boardGame = document.querySelector(".board");
+const marker = document.querySelector(".marker");
 let game = {};
 
 const menus = (function (doc) {
@@ -115,7 +116,7 @@ const menus = (function (doc) {
     addActionMain,
     addActionLast,
     getPlayers,
-    setLastMenuMessage
+    setLastMenuMessage,
   };
 })(document);
 
@@ -123,7 +124,8 @@ menus.addActionMain(() => {
   let players = menus.getPlayers();
   menus.toggleMainMenu();
   game = gameFactory(players.player1, players.player2);
-  console.log(game.getPlayers());
+  marker.querySelector("span").textContent = game.getTurnPlayer().name;
+  marker.querySelector("span").classList = game.getTurnPlayer().sign;
 });
 
 menus.addActionLast(() => {
@@ -131,9 +133,8 @@ menus.addActionLast(() => {
   menus.toggleMainMenu();
   boardGame.querySelectorAll("input").forEach((element) => {
     element.value = "";
-  })
+  });
 });
-
 
 boardGame.addEventListener("click", (e) => {
   let elementClicked = e.target;
@@ -150,6 +151,10 @@ boardGame.addEventListener("click", (e) => {
 
     //Paso el turno e indico la posicion que jugue en el turno
     game.passTurn(x, y);
+
+    //Cambio el marcador que indica el turno y tambien el color
+    marker.querySelector("span").textContent = game.getTurnPlayer().name;
+    marker.querySelector("span").classList = game.getTurnPlayer().sign;
   }
 });
 
@@ -163,7 +168,7 @@ boardGame.addEventListener("click", (e) => {
     } else {
       menus.setLastMenuMessage(`The winner is ${players.player2.name}`);
     }
-    
+
     menus.toggleLastMenu();
   }
 });
