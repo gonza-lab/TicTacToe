@@ -66,9 +66,15 @@ const game = (function (player1, player2) {
   return { passTurn, getTurnPlayer, getGameBoard, getWinner };
 })("Gonzalo", "Ramiro");
 
-document.querySelector(".board").addEventListener("click", (e) => {
+const boardGame = document.querySelector(".board");
+
+boardGame.addEventListener("click", (e) => {
   let elementClicked = e.target;
-  if (elementClicked.localName === "input" && !game.getWinner()) {
+  if (
+    elementClicked.localName === "input" &&
+    !game.getWinner() &&
+    !elementClicked.value
+  ) {
     let x = elementClicked.id[0];
     let y = elementClicked.id[1];
 
@@ -77,7 +83,13 @@ document.querySelector(".board").addEventListener("click", (e) => {
 
     //Paso el turno e indico la posicion que jugue en el turno
     game.passTurn(x, y);
-  } else {
+  }
+});
+
+boardGame.addEventListener("click", (e) => {
+  if (game.getWinner()) {
     console.log(game.getWinner());
   }
 });
+
+

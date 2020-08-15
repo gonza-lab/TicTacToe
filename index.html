@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <title>TicTacToe</title>
 </head>
+
 <body>
+  <div>
+    <form>
+      <div class="textBox">
+        <label for="player1Name">Player 1: </label>
+        <input id="player1Name">
+      </div>
+      <div class="textBox">
+        <label for="player2Name">Player 2: </label>
+        <input id="player2Name">
+      </div>
+      <div class="button">
+        <input type="button" value="Play Game" class="play" id="playGame">
+      </div>
+    </form>
+  </div>
   <main>
     <div class="board">
       <input id="00" type="button">
@@ -23,4 +40,5 @@
   </main>
   <script src="app.js"></script>
 </body>
+
 </html>

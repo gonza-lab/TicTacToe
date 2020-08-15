@@ -2,6 +2,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
 }
 
 body,
@@ -32,10 +33,73 @@ main {
   max-height: 400px;
   height: 70vw;
   width: 70%;
-  
 }
 
+body>div{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+
+form{
+  color: white;
+  font-size: 1.8rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.textBox{
+  height: 10%;
+  margin: 0 1em;
+}
+
+.textBox>label{
+  display: block;
+}
+
+.textBox>input{
+  margin-top: 0.5em;
+  width: 100%;
+  height: 45px;
+  font-size: 1.8rem;
+}
+
+.button{
+  width: 100%;
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.play{
+  font-size: 1.2rem;
+  color: white;
+  background-color: rgb(255, 99, 71);
+  border: none;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: 0 5px 0 rgb(205, 49, 21);
+  font-weight: 800;
+}
+
+.play:active{
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
+
+
 .board {
+  position: relative;
   height: 100%;
   /* background-color: rgba(255, 255, 255, 0.3); */
   background-color: rgba(0, 0, 0, 0.7);
@@ -47,7 +111,7 @@ main {
 }
 
 .board > input {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   margin: 0.28em;
   border: none;
@@ -57,9 +121,18 @@ main {
   box-shadow: 0 0 4px rgba(255, 255, 255, 1);
   color: white;
   font-size: 3rem;
+  text-align: center;
 }
 
 .board > input:active {
   transform: scale(0.97);
   box-shadow: none;
+}
+
+input[value="X"] {
+  color: rgb(231, 76, 60);
+}
+
+input[value="O"] {
+  color: rgb(41, 128, 185 );
 }
